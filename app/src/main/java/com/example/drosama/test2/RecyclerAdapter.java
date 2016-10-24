@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
@@ -36,8 +35,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         }
     }
 
-    public RecyclerAdapter(Context context) {
+    public RecyclerAdapter(Context context, ArrayList<Movie> movies) {
         this.context = context;
+        this.movies = movies;
     }
 
     @Override
@@ -59,9 +59,4 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         return this.movies.size();
     }
 
-    public void updateMovies(Movie[] result){
-        this.movies.clear();
-        Collections.addAll(this.movies, result);
-        notifyDataSetChanged();
-    }
 }

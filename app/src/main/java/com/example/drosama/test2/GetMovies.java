@@ -17,8 +17,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class GetMovies extends AsyncTask<String, Void, Movie[]> {
-    private ProgressDialog progressDialog;
-    private Context context;
     private final String LOG_TAG = GetMovies.class.getSimpleName();
 
     public interface SetOnSuccess{
@@ -27,9 +25,8 @@ public class GetMovies extends AsyncTask<String, Void, Movie[]> {
 
     private static SetOnSuccess aftermath;
 
-    public GetMovies(SetOnSuccess aftermath, Context context) {
+    public GetMovies(SetOnSuccess aftermath) {
         this.aftermath = aftermath;
-        this.context = context;
     }
 
     private Movie[] getMovieDataFromJson(String jsonStr) throws JSONException {
@@ -68,19 +65,9 @@ public class GetMovies extends AsyncTask<String, Void, Movie[]> {
 
             resultMovs[i] = new Movie(poster, title, adult, overview, release, id, userVote);
         }
-        for (Movie m : resultMovs) {
-            Log.v(LOG_TAG, "Movie entry: " + m.getTitle());
-        }
+
         return resultMovs;
 
-    }
-
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage("Loading...");
-        progressDialog.show();
     }
 
     @Override
@@ -141,6 +128,5 @@ public class GetMovies extends AsyncTask<String, Void, Movie[]> {
     @Override
     protected void onPostExecute(Movie[] result) {
         aftermath.onSuccess(result);
-        progressDialog.dismiss();
     }
 }
