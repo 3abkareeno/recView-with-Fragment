@@ -16,7 +16,6 @@ import java.util.ArrayList;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
     private ArrayList<Movie> movies = new ArrayList<>();
-    Context context;
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -35,11 +34,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         }
     }
 
-    public RecyclerAdapter(Context context, ArrayList<Movie> movies) {
-        this.context = context;
-        this.movies = movies;
-    }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View inflatedView = LayoutInflater.from(parent.getContext())
@@ -56,7 +50,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
     @Override
     public int getItemCount() {
-        return this.movies.size();
+        if(this.movies != null)
+            return this.movies.size();
+        else
+            return 0;
+    }
+
+    public void addAll(ArrayList<Movie> myMovies){
+        if(movies != null){
+            movies.clear();
+            movies.addAll(myMovies);
+            notifyDataSetChanged();
+        }
     }
 
 }

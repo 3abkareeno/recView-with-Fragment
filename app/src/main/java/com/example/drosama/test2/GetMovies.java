@@ -103,6 +103,7 @@ public class GetMovies extends AsyncTask<String, Void, Movie[]> {
 
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error ", e);
+           e.printStackTrace();
             return null;
         } finally {
             if (urlConnection != null) {
